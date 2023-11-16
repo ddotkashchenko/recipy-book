@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Config
+preferences: {}
+
+clusters:
+- cluster:
+  name: docker-desktop
+
+users:
+- name: ddotkashchenko
+
+contexts:
+- context:
+  name: dev
