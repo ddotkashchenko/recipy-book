@@ -1,0 +1,30 @@
+pipeline {
+    agent {
+        kubernetes {
+            yaml '''
+                apiVersion: v1
+                kind: Pod
+                securityContext:
+                    fsGroup: 1000
+                metadata:
+                    name: kube-agent
+                    labels:
+                        name: kubeagent
+                spec:
+                    containers:
+                        - name: node
+                          image: node:12.16.2
+                          tty: true
+            '''
+        }
+    }
+    stages {
+        stage('Test') {
+            steps {
+                container('node') {
+                    sh 'node --version'
+                }
+            }
+        }
+    }
+}
