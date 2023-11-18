@@ -22,10 +22,10 @@ spec:
           image: jenkins/jenkins:lts
           resources:
             limits:
-              memory: "2Gi"
+              memory: "100Mi"
               cpu: "1000m"
             requests:
-              memory: "500Mi"
+              memory: "100Mi"
               cpu: "500m"
           ports:
             - name: httpport
@@ -51,6 +51,16 @@ spec:
           volumeMounts:
             - name: jenkins-data
               mountPath: /var/jenkins_home
+        - name: webhooks-proxy
+          image: deltaprojects/smee-client
+          args: ["-u https://smee.io/z3x5DliUZN7GlQqI", "-t http://jenkins-service.devops-tools.svc.cluster.local:8080"]
+          resources:
+            limits:
+              memory: "100Mi"
+              cpu: "1000m"
+            requests:
+              memory: "100Mi"
+              cpu: "500m"
       volumes:
         - name: jenkins-data
           persistentVolumeClaim:
