@@ -58,7 +58,7 @@ spec:
           - "-u"
           - "https://smee.io/z3x5DliUZN7GlQqI"
           - "-t"
-          - "http://jenkins-service.devops-tools.svc.cluster.local:32000"
+          - "http://jenkins-service.devops-tools.svc.cluster.local:8080/github-webhook/"
           resources:
             limits:
               memory: "100Mi"
