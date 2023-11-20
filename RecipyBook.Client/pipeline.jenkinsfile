@@ -22,7 +22,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                container('node') {
+                container('dotnet') {
                     sh 'dotnet build -c Release'
                 }
             }
