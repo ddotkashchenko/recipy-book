@@ -27,18 +27,19 @@ pipeline {
                     volumes:
                         - name: docker-sock
                           hostPath:
-                          path: //var/run/docker.sock
+                            path: //var/run/docker.sock
+                            type: null
             '''
         }
     }
     stages {
-        stage('Build') {
-            steps {
-                container('dotnet') {
-                    sh 'dotnet build -c Release'
-                }
-            }
-        }
+        // stage('Build') {
+        //     steps {
+        //         container('dotnet') {
+        //             sh 'dotnet build -c Release'
+        //         }
+        //     }
+        // }
         stage('Deploy') {
             steps {
                 container('docker') {
