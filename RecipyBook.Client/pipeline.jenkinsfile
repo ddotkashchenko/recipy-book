@@ -27,5 +27,11 @@ pipeline {
                 }
             }
         }
+        stage('Deploy') {
+            steps {
+                input message: 'Deploy RecipyBook.Client to Staging?', ok: 'Yes'
+                echo 'Initiating Deployment'
+            }
+        }
     }
 }
