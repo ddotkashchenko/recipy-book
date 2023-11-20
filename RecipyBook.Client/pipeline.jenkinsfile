@@ -16,6 +16,18 @@ pipeline {
                           image: mcr.microsoft.com/dotnet/sdk:7.0
                           tty: true
                           workingDir: 
+                        - name: docker
+                          image: docker:latest
+                          command:
+                          - cat
+                          tty: true
+                          volumeMounts:
+                          - mountPath: /var/run/docker.sock
+                          name: docker-sock
+                    volumes:
+                        - name: docker-sock
+                          hostPath:
+                          path: /var/run/docker.sock
             '''
         }
     }
@@ -29,8 +41,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                input message: 'Deploy RecipyBook.Client to Staging?', ok: 'Yes'
-                echo 'Initiating Deployment'
+                container('docker') {
+                    sh 'docker build -t RecipyBook/Client:latest .'
+                }
             }
         }
     }
