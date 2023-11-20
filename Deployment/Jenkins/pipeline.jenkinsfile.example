@@ -12,18 +12,17 @@ pipeline {
                         name: kubeagent
                 spec:
                     containers:
-                        - name: dotnet
-                          image: mcr.microsoft.com/dotnet/sdk:7.0 AS build
+                        - name: node
+                          image: node:12.16.2
                           tty: true
-                          workingDir: 
             '''
         }
     }
     stages {
-        stage('Build') {
+        stage('Test') {
             steps {
                 container('node') {
-                    sh 'dotnet build -c Release'
+                    sh 'node --version'
                 }
             }
         }
