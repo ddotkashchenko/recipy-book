@@ -5,8 +5,8 @@ WORKDIR /source
 COPY . ./
 RUN dotnet publish -c release -o /app
 
-# # final stage/image
-# FROM mcr.microsoft.com/dotnet/aspnet:7.0
-# WORKDIR /app
-# COPY --from=build /app ./
-# ENTRYPOINT ["dotnet", "RecipyBook.Client.dll"]
+# final stage/image
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
+WORKDIR /app
+COPY --from=build /app ./
+ENTRYPOINT ["dotnet", "RecipyBook.Client.dll"]
