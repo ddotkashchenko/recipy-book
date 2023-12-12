@@ -33,17 +33,24 @@ pipeline {
         }
     }
     stages {
-        // stage('Build') {
-        //     steps {
-        //         container('dotnet') {
-        //             sh 'dotnet build -c Release'
-        //         }
-        //     }
-        // }
+        stage('Build') {
+            steps {
+                container('dotnet') {
+                    sh 'dotnet build -c Release'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                container('dotnet') {
+                    sh 'dotnet test'
+                }
+            }
+        }
         stage('Deploy') {
             steps {
                 container('docker') {
-                    sh 'docker build -t recipybook/client:latest .'
+                    sh 'docker build -t recipybook/client:latest -f Dockerfile.ci .'
                 }
             }
         }
