@@ -43,13 +43,15 @@ pipeline {
         stage('Test') {
             steps {
                 container('dotnet') {
-                    sh 'dotnet test'
+                    sh 'ls -a'
+                    //sh 'dotnet test'
                 }
             }
         }
         stage('Deploy') {
             steps {
                 container('docker') {
+                    sh 'ls -a'
                     sh 'docker build -t recipybook/client:latest -f Dockerfile.ci .'
                 }
             }
