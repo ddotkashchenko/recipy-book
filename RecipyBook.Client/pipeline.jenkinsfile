@@ -15,10 +15,8 @@ pipeline {
                         - name: dotnet
                           image: mcr.microsoft.com/dotnet/sdk:7.0
                           tty: true
-                          workingDir: ./RecipyBook.Client
                         - name: docker
                           image: docker:latest
-                          workingDir: ./RecipyBook.Client
                           command:
                             - cat
                           tty: true
@@ -37,7 +35,7 @@ pipeline {
         stage('Build') {
             steps {
                 container('dotnet') {
-                    sh 'dotnet build -c Release'
+                    sh 'dotnet build RecipyBook.Client -c Release'
                 }
             }
         }
@@ -53,7 +51,7 @@ pipeline {
             steps {
                 container('docker') {
                     sh 'ls -a'
-                    sh 'docker build -t recipybook/client:latest -f Dockerfile.ci .'
+                    sh 'docker build -t recipybook/client:latest -f RecipyBook.Client/Dockerfile.ci ./RecipyBook.Client'
                 }
             }
         }
